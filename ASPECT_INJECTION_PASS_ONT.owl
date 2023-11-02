@@ -1,0 +1,620 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/thomas/ontologies/2023/9/untitled-ontology-11#"
+     xml:base="http://www.semanticweb.org/thomas/ontologies/2023/9/untitled-ontology-11"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="http://www.ce.jku.edu/aspect-injection-pass-ont">
+        <owl:versionIRI rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont/0.5.0"/>
+        <owl:imports rdf:resource="http://www.i2pm.net/standard-pass-ont/1.1.0"/>
+        <rdfs:comment xml:lang="en">This ontology represents an extension of the Standard-PASS-Ontology aimed to support aspect-oriented modeling with PASS. It specifies additional concepts needed for enriching standard PASS models with aspects - groups of advice process models whose behavior is injected into core PASS process models according to their associated pointcut definitions.</rdfs:comment>
+        <owl:priorVersion xml:lang="en">Version 0.5.0 (27.10.2023):
+ - Initial specification completed (all concepts needed for defining basic advice process models were added).</owl:priorVersion>
+        <owl:versionInfo xml:lang="en">Version 0.5.1 (02.11.2023):
+ - Added comments to all new classes, object properties, data properties, and data types.</owl:versionInfo>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Datatypes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.ce.jku.edu/aspect-injection-pass-ont#aip:executionModality -->
+
+    <rdfs:Datatype rdf:about="http://www.ce.jku.edu/aspect-injection-pass-ont#aip:executionModality">
+        <rdfs:comment xml:lang="en">Custom data type used for representing the execution modality of an advice model. The listed options are based on the existing execution options for external functions in the PASS interpreter specification by Elstermann (2023).
+
+Elstermann, M. (2023). Proposal for a Recursive Interpreter Specification for PASS in PASS. In: Elstermann, M., Dittmar, A., Lederer, M. (eds) Subject-Oriented Business Process Management. Models for Designing Digital Transformations. S-BPM ONE 2023. Communications in Computer and Information Science, vol 1867. Springer, Cham. https://doi.org/10.1007/978-3-031-40213-5_14</rdfs:comment>
+        <owl:equivalentClass>
+            <rdfs:Datatype>
+                <owl:oneOf>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                        <rdf:first>BLOCKING</rdf:first>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                <rdf:first>FIRE_AND_FORGET</rdf:first>
+                                <rdf:rest>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                        <rdf:first>ONLY_ABORT</rdf:first>
+                                        <rdf:rest>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                                <rdf:first>WITH_INTERRUPTS</rdf:first>
+                                                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                            </rdf:Description>
+                                        </rdf:rest>
+                                    </rdf:Description>
+                                </rdf:rest>
+                            </rdf:Description>
+                        </rdf:rest>
+                    </rdf:Description>
+                </owl:oneOf>
+            </rdfs:Datatype>
+        </owl:equivalentClass>
+    </rdfs:Datatype>
+    
+
+
+    <!-- http://www.ce.jku.edu/aspect-injection-pass-ont#aip:joinPointType -->
+
+    <rdfs:Datatype rdf:about="http://www.ce.jku.edu/aspect-injection-pass-ont#aip:joinPointType">
+        <rdfs:comment xml:lang="en">Custom data type used for representing the join point type. The listed options were chosen with their realization in the PASS interpreter specification by Elstermann (2023) in mind.
+
+Elstermann, M. (2023). Proposal for a Recursive Interpreter Specification for PASS in PASS. In: Elstermann, M., Dittmar, A., Lederer, M. (eds) Subject-Oriented Business Process Management. Models for Designing Digital Transformations. S-BPM ONE 2023. Communications in Computer and Information Science, vol 1867. Springer, Cham. https://doi.org/10.1007/978-3-031-40213-5_14</rdfs:comment>
+        <owl:equivalentClass>
+            <rdfs:Datatype>
+                <owl:oneOf>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                        <rdf:first>AFTER_SUBJECT_INITIALIZATION</rdf:first>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                <rdf:first>BEFORE_SUBJECT_TERMINATION</rdf:first>
+                                <rdf:rest>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                        <rdf:first>DO_STATE</rdf:first>
+                                        <rdf:rest>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                                <rdf:first>DO_STATE_DATABINDING</rdf:first>
+                                                <rdf:rest>
+                                                    <rdf:Description>
+                                                        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                                        <rdf:first>DO_STATE_EXT_FUNC_EXEC</rdf:first>
+                                                        <rdf:rest>
+                                                            <rdf:Description>
+                                                                <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                                                <rdf:first>END_STATE</rdf:first>
+                                                                <rdf:rest>
+                                                                    <rdf:Description>
+                                                                        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                                                        <rdf:first>MACRO</rdf:first>
+                                                                        <rdf:rest>
+                                                                            <rdf:Description>
+                                                                                <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                                                                <rdf:first>RECEIVE_STATE</rdf:first>
+                                                                                <rdf:rest>
+                                                                                    <rdf:Description>
+                                                                                        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                                                                        <rdf:first>RECEIVE_STATE_MESSAGE_BINDING</rdf:first>
+                                                                                        <rdf:rest>
+                                                                                            <rdf:Description>
+                                                                                                <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                                                                                <rdf:first>SEND_STATE</rdf:first>
+                                                                                                <rdf:rest>
+                                                                                                    <rdf:Description>
+                                                                                                        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                                                                                        <rdf:first>SEND_STATE_MESSAGE_BINDING</rdf:first>
+                                                                                                        <rdf:rest>
+                                                                                                            <rdf:Description>
+                                                                                                                <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                                                                                                <rdf:first>START_STATE</rdf:first>
+                                                                                                                <rdf:rest>
+                                                                                                                    <rdf:Description>
+                                                                                                                        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                                                                                                        <rdf:first>STATE</rdf:first>
+                                                                                                                        <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                                                                                                    </rdf:Description>
+                                                                                                                </rdf:rest>
+                                                                                                            </rdf:Description>
+                                                                                                        </rdf:rest>
+                                                                                                    </rdf:Description>
+                                                                                                </rdf:rest>
+                                                                                            </rdf:Description>
+                                                                                        </rdf:rest>
+                                                                                    </rdf:Description>
+                                                                                </rdf:rest>
+                                                                            </rdf:Description>
+                                                                        </rdf:rest>
+                                                                    </rdf:Description>
+                                                                </rdf:rest>
+                                                            </rdf:Description>
+                                                        </rdf:rest>
+                                                    </rdf:Description>
+                                                </rdf:rest>
+                                            </rdf:Description>
+                                        </rdf:rest>
+                                    </rdf:Description>
+                                </rdf:rest>
+                            </rdf:Description>
+                        </rdf:rest>
+                    </rdf:Description>
+                </owl:oneOf>
+            </rdfs:Datatype>
+        </owl:equivalentClass>
+    </rdfs:Datatype>
+    
+
+
+    <!-- http://www.ce.jku.edu/aspect-injection-pass-ont#aip:operationType -->
+
+    <rdfs:Datatype rdf:about="http://www.ce.jku.edu/aspect-injection-pass-ont#aip:operationType">
+        <rdfs:comment xml:lang="en">Custom data type used for representing operation types for data access rights.</rdfs:comment>
+        <owl:equivalentClass>
+            <rdfs:Datatype>
+                <owl:oneOf>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                        <rdf:first>DELETE</rdf:first>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                <rdf:first>READ</rdf:first>
+                                <rdf:rest>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                        <rdf:first>WRITE</rdf:first>
+                                        <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                    </rdf:Description>
+                                </rdf:rest>
+                            </rdf:Description>
+                        </rdf:rest>
+                    </rdf:Description>
+                </owl:oneOf>
+            </rdfs:Datatype>
+        </owl:equivalentClass>
+    </rdfs:Datatype>
+    
+
+
+    <!-- http://www.ce.jku.edu/aspect-injection-pass-ont#aip:subjectDataType -->
+
+    <rdfs:Datatype rdf:about="http://www.ce.jku.edu/aspect-injection-pass-ont#aip:subjectDataType">
+        <rdfs:comment xml:lang="en">Custom data type used for representing different classes of subject data used in defining data access rights. DATA_BEFORE_READ and DATA_BEFORE_WRITE refer to data that is going to be read from/written to somewhere durign behavior execution (e.g.: a message).</rdfs:comment>
+        <owl:equivalentClass>
+            <rdfs:Datatype>
+                <owl:oneOf>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                        <rdf:first>DATA</rdf:first>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                <rdf:first>DATA_BEFORE_READ</rdf:first>
+                                <rdf:rest>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                        <rdf:first>DATA_BEFORE_WRITE</rdf:first>
+                                        <rdf:rest>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                                <rdf:first>METADATA</rdf:first>
+                                                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                            </rdf:Description>
+                                        </rdf:rest>
+                                    </rdf:Description>
+                                </rdf:rest>
+                            </rdf:Description>
+                        </rdf:rest>
+                    </rdf:Description>
+                </owl:oneOf>
+            </rdfs:Datatype>
+        </owl:equivalentClass>
+    </rdfs:Datatype>
+    
+
+
+    <!-- http://www.ce.jku.edu/aspect-injection-pass-ont#aip:weavingModality -->
+
+    <rdfs:Datatype rdf:about="http://www.ce.jku.edu/aspect-injection-pass-ont#aip:weavingModality">
+        <rdfs:comment xml:lang="en">Custom data type used for representing the weaving modality of an advice model. The common option &quot;around&quot; was not included, since existing extensions to PASS (layered PASS) already provide analogous functionality to modelers.</rdfs:comment>
+        <owl:equivalentClass>
+            <rdfs:Datatype>
+                <owl:oneOf>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                        <rdf:first>AFTER</rdf:first>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                <rdf:first>BEFORE</rdf:first>
+                                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                            </rdf:Description>
+                        </rdf:rest>
+                    </rdf:Description>
+                </owl:oneOf>
+            </rdfs:Datatype>
+        </owl:equivalentClass>
+    </rdfs:Datatype>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.ce.jku.edu/aspect-injection-pass-ont#hasDataAccessRight -->
+
+    <owl:ObjectProperty rdf:about="http://www.ce.jku.edu/aspect-injection-pass-ont#hasDataAccessRight">
+        <rdfs:subPropertyOf rdf:resource="http://www.i2pm.net/standard-pass-ont#hasRelationToModelComponent"/>
+        <rdfs:domain rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#Pointcut"/>
+        <rdfs:range rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#DataAccessRight"/>
+        <rdfs:comment xml:lang="en">This object property links together pointcuts and data access rights.</rdfs:comment>
+        <rdfs:seeAlso rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#DataAccessRight"/>
+        <rdfs:seeAlso rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#Pointcut"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.ce.jku.edu/aspect-injection-pass-ont#hasJoinPointDescription -->
+
+    <owl:ObjectProperty rdf:about="http://www.ce.jku.edu/aspect-injection-pass-ont#hasJoinPointDescription">
+        <rdfs:subPropertyOf rdf:resource="http://www.i2pm.net/standard-pass-ont#hasRelationToModelComponent"/>
+        <rdfs:domain rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#Pointcut"/>
+        <rdfs:range rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#JoinPointDescription"/>
+        <rdfs:comment xml:lang="en">This object property links together pointcuts and join point descriptions.</rdfs:comment>
+        <rdfs:seeAlso rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#JoinPointDescription"/>
+        <rdfs:seeAlso rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#Pointcut"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.ce.jku.edu/aspect-injection-pass-ont#hasDigitalSignature -->
+
+    <owl:DatatypeProperty rdf:about="http://www.ce.jku.edu/aspect-injection-pass-ont#hasDigitalSignature">
+        <rdfs:subPropertyOf rdf:resource="http://www.i2pm.net/standard-pass-ont#PASSModelDataProperty"/>
+        <rdfs:domain rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#Pointcut"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment xml:lang="en">For now the digital signature was defined to be of the type xsd:string. This may need to be changed in future versions of the extended ontology to better account for existing formats dedicated to representing digital signatures.</rdfs:comment>
+        <rdfs:comment xml:lang="en">This data property assigns a textual digital signature representation to a pointcut.</rdfs:comment>
+        <rdfs:seeAlso rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#Pointcut"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.ce.jku.edu/aspect-injection-pass-ont#hasExecutionModality -->
+
+    <owl:DatatypeProperty rdf:about="http://www.ce.jku.edu/aspect-injection-pass-ont#hasExecutionModality">
+        <rdfs:subPropertyOf rdf:resource="http://www.i2pm.net/standard-pass-ont#PASSModelDataProperty"/>
+        <rdfs:domain rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#JoinPointDescription"/>
+        <rdfs:range rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#aip:executionModality"/>
+        <rdfs:comment xml:lang="en">This data property assigns an execution modality (using a dedicated datatype) to a join point description.</rdfs:comment>
+        <rdfs:seeAlso rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#JoinPointDescription"/>
+        <rdfs:seeAlso rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#aip:executionModality"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.ce.jku.edu/aspect-injection-pass-ont#hasInjectionPriority -->
+
+    <owl:DatatypeProperty rdf:about="http://www.ce.jku.edu/aspect-injection-pass-ont#hasInjectionPriority">
+        <rdfs:subPropertyOf rdf:resource="http://www.i2pm.net/standard-pass-ont#PASSModelDataProperty"/>
+        <rdfs:domain rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#Pointcut"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#positiveInteger"/>
+        <rdfs:comment xml:lang="en">This data property assigns an injection priority to a pointcut. The priority is a positive integer and is used to govern the execution order of multiple advice models that apply to the same join point in a core process model.</rdfs:comment>
+        <rdfs:seeAlso rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#Pointcut"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.ce.jku.edu/aspect-injection-pass-ont#hasJoinPointQuery -->
+
+    <owl:DatatypeProperty rdf:about="http://www.ce.jku.edu/aspect-injection-pass-ont#hasJoinPointQuery">
+        <rdfs:subPropertyOf rdf:resource="http://www.i2pm.net/standard-pass-ont#PASSModelDataProperty"/>
+        <rdfs:domain rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#JoinPointDescription"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment xml:lang="en">This data property assigns a textual join point query to a join point description. The query is intended to take the form of a pattern definition that is used to match, e.g., state names of join point states (defined through the join point type).</rdfs:comment>
+        <rdfs:seeAlso rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#JoinPointDescription"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.ce.jku.edu/aspect-injection-pass-ont#hasJoinPointType -->
+
+    <owl:DatatypeProperty rdf:about="http://www.ce.jku.edu/aspect-injection-pass-ont#hasJoinPointType">
+        <rdfs:subPropertyOf rdf:resource="http://www.i2pm.net/standard-pass-ont#PASSModelDataProperty"/>
+        <rdfs:domain rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#JoinPointDescription"/>
+        <rdfs:range rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#aip:joinPointType"/>
+        <rdfs:comment xml:lang="en">This data property assigns a join point type (using a dedicated datatype) to a join point description.</rdfs:comment>
+        <rdfs:seeAlso rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#JoinPointDescription"/>
+        <rdfs:seeAlso rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#aip:joinPointType"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.ce.jku.edu/aspect-injection-pass-ont#hasOperationType -->
+
+    <owl:DatatypeProperty rdf:about="http://www.ce.jku.edu/aspect-injection-pass-ont#hasOperationType">
+        <rdfs:subPropertyOf rdf:resource="http://www.i2pm.net/standard-pass-ont#PASSModelDataProperty"/>
+        <rdfs:domain rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#DataAccessRight"/>
+        <rdfs:range rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#aip:operationType"/>
+        <rdfs:comment xml:lang="en">This data property assigns an operation type (using a dedicated datatype) to a data access right.</rdfs:comment>
+        <rdfs:seeAlso rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#DataAccessRight"/>
+        <rdfs:seeAlso rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#aip:operationType"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.ce.jku.edu/aspect-injection-pass-ont#hasSubjectDataType -->
+
+    <owl:DatatypeProperty rdf:about="http://www.ce.jku.edu/aspect-injection-pass-ont#hasSubjectDataType">
+        <rdfs:subPropertyOf rdf:resource="http://www.i2pm.net/standard-pass-ont#PASSModelDataProperty"/>
+        <rdfs:domain rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#DataAccessRight"/>
+        <rdfs:range rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#aip:subjectDataType"/>
+        <rdfs:comment xml:lang="en">This data property assigns a subject data type (using a dedicated datatype) to a data access right.</rdfs:comment>
+        <rdfs:seeAlso rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#DataAccessRight"/>
+        <rdfs:seeAlso rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#aip:subjectDataType"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.ce.jku.edu/aspect-injection-pass-ont#hasWeavingModality -->
+
+    <owl:DatatypeProperty rdf:about="http://www.ce.jku.edu/aspect-injection-pass-ont#hasWeavingModality">
+        <rdfs:subPropertyOf rdf:resource="http://www.i2pm.net/standard-pass-ont#PASSModelDataProperty"/>
+        <rdfs:domain rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#JoinPointDescription"/>
+        <rdfs:range rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#aip:weavingModality"/>
+        <rdfs:comment xml:lang="en">This data property assigns a weaving modality (using a dedicated datatype) to a join point description.</rdfs:comment>
+        <rdfs:seeAlso rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#JoinPointDescription"/>
+        <rdfs:seeAlso rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#aip:weavingModality"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.ce.jku.edu/aspect-injection-pass-ont#AIPModelElement -->
+
+    <owl:Class rdf:about="http://www.ce.jku.edu/aspect-injection-pass-ont#AIPModelElement">
+        <rdfs:subClassOf rdf:resource="http://www.i2pm.net/standard-pass-ont#PASSProcessModelElement"/>
+        <rdfs:comment xml:lang="en">This class is used to group together all other classes that were added as part of the aspect-oriented extension of the Standard-PASS-Ontology.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ce.jku.edu/aspect-injection-pass-ont#AdviceSubject -->
+
+    <owl:Class rdf:about="http://www.ce.jku.edu/aspect-injection-pass-ont#AdviceSubject">
+        <rdfs:subClassOf rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#AIPModelElement"/>
+        <rdfs:subClassOf rdf:resource="http://www.i2pm.net/standard-pass-ont#FullySpecifiedSubject"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.i2pm.net/standard-pass-ont#hasDataDefinition"/>
+                <owl:maxQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxQualifiedCardinality>
+                <owl:onClass rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#SubjectDataRequirementsDefinition"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment xml:lang="en">This class describes a special kind of fully specified subject that is intented to be used in advice process models. The main difference lies in the fact that an advice subject has an associated data requirements list that specifies the data that it requires from the subject that it should be injected into. This data is, e.g., needed to perform different operations as part of the advice subject&apos;s behavior.</rdfs:comment>
+        <rdfs:seeAlso rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#PASSAdviceModel"/>
+        <rdfs:seeAlso rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#SubjectDataRequirementsDefinition"/>
+        <rdfs:seeAlso rdf:resource="http://www.i2pm.net/standard-pass-ont#FullySpecifiedSubject"/>
+        <rdfs:seeAlso xml:lang="en">It was considered to specifiy the data requirements on the level of the whole advice model that should be injected, but the idea was eventually rejected in favor of a per subject solution that supports creater independency during model creation. It then falls to an interpreter to gather and consolidate the data requirements of the individual advice subjects.</rdfs:seeAlso>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ce.jku.edu/aspect-injection-pass-ont#ConfigurationDescribingComponent -->
+
+    <owl:Class rdf:about="http://www.ce.jku.edu/aspect-injection-pass-ont#ConfigurationDescribingComponent">
+        <rdfs:subClassOf rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#AIPModelElement"/>
+        <rdfs:comment xml:lang="en">This class was introduced to group together model elements that are used to describe different configuration properties, which are mostly relevant to the model interpreter/execution engine (in case of dynamic weaving - the current extension was primarily created with this kind of model injection in mind) or model transformation engines (in case of static weaving). This kind of component was not present to the same degree in standard PASS, but the added aspect-oriented extension requires multiple model elements whose sole purpose is to describe configuration properties for a run-time environment (e.g.: to define at what points in a core model the advice model behavior should be injected).</rdfs:comment>
+        <rdfs:seeAlso rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#DataAccessRight"/>
+        <rdfs:seeAlso rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#JoinPointDescription"/>
+        <rdfs:seeAlso rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#Pointcut"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ce.jku.edu/aspect-injection-pass-ont#DataAccessRight -->
+
+    <owl:Class rdf:about="http://www.ce.jku.edu/aspect-injection-pass-ont#DataAccessRight">
+        <rdfs:subClassOf rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#ConfigurationDescribingComponent"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#hasOperationType"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onDataRange rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#aip:operationType"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#hasSubjectDataType"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onDataRange rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#aip:subjectDataType"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment xml:lang="en">Defines a data access right in the form of an operation type (what should be done) and a subject data type (the classes of subject data objects that the operation should be performed on). Data access rights are primarily specified as part of pointcuts for the sake of documentation - they are not considered to be trustworthy by a run-time environment. The actual access rights needed by an advice subject are inferred from the subject data requirements definition list and subject behavior. These are then checked against the stored permissions of the advice creator that matches the signature listed in the pointcut definition.</rdfs:comment>
+        <rdfs:seeAlso rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#Pointcut"/>
+        <rdfs:seeAlso rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#SubjectDataRequirementsDefinition"/>
+        <rdfs:seeAlso rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#aip:operationType"/>
+        <rdfs:seeAlso rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#aip:subjectDataType"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ce.jku.edu/aspect-injection-pass-ont#JoinPointDescription -->
+
+    <owl:Class rdf:about="http://www.ce.jku.edu/aspect-injection-pass-ont#JoinPointDescription">
+        <rdfs:subClassOf rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#ConfigurationDescribingComponent"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#hasExecutionModality"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onDataRange rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#aip:executionModality"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#hasJoinPointQuery"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onDataRange rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#hasJoinPointType"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onDataRange rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#aip:joinPointType"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#hasWeavingModality"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onDataRange rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#aip:weavingModality"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment xml:lang="en">The join point description is part of an advice model&apos;s pointcut and specifies all details with regard to the place in the core process model&apos;s execution where an adivce model should be injected. The join point type is realized as a list of possible options for injection points in a model, naming different types of states, as well as interpreter-specific execution points. The join point query can be used to further specify information, such as name patterns for the desired type of state. The execution modality lists interpreter-specific options for the execution of the injected behavior, while the weaving modality specifies the relation with regard to the join point (before or after). Commonly, aspect-oriented programming and modeling also knows the weaving modality &quot;around&quot;, but this type is already sufficiently covered by the existing PASS extension &quot;layered PASS&quot;.</rdfs:comment>
+        <rdfs:seeAlso rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#Pointcut"/>
+        <rdfs:seeAlso rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#aip:executionModality"/>
+        <rdfs:seeAlso rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#aip:joinPointType"/>
+        <rdfs:seeAlso rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#aip:weavingModality"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ce.jku.edu/aspect-injection-pass-ont#PASSAdviceModel -->
+
+    <owl:Class rdf:about="http://www.ce.jku.edu/aspect-injection-pass-ont#PASSAdviceModel">
+        <rdfs:subClassOf rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#AIPModelElement"/>
+        <rdfs:subClassOf rdf:resource="http://www.i2pm.net/standard-pass-ont#PASSProcessModel"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.i2pm.net/standard-pass-ont#hasRelationToModelComponent"/>
+                <owl:allValuesFrom>
+                    <owl:Class>
+                        <owl:unionOf rdf:parseType="Collection">
+                            <rdf:Description rdf:about="http://www.ce.jku.edu/aspect-injection-pass-ont#AdviceSubject"/>
+                            <rdf:Description rdf:about="http://www.ce.jku.edu/aspect-injection-pass-ont#Pointcut"/>
+                            <rdf:Description rdf:about="http://www.i2pm.net/standard-pass-ont#InterfaceSubject"/>
+                            <rdf:Description rdf:about="http://www.i2pm.net/standard-pass-ont#MessageExchange"/>
+                        </owl:unionOf>
+                    </owl:Class>
+                </owl:allValuesFrom>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.i2pm.net/standard-pass-ont#hasRelationToModelComponent"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onClass rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#Pointcut"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment xml:lang="en">The advice model is a special subclass of the PASS process model. Advice models are used as part of aspects to specify behavior that should be injected into a core process model (a normal PASS process model). Compared to their parent class, adivce models additionally contain exactly one pointcut that details the injection modalities. They furthermore can only encompass special advice subjects, interface subjects (for external functionalities that may be required), message exchanges, and a pointcut.</rdfs:comment>
+        <rdfs:seeAlso rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#AdviceSubject"/>
+        <rdfs:seeAlso rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#Pointcut"/>
+        <rdfs:seeAlso rdf:resource="http://www.i2pm.net/standard-pass-ont#InterfaceSubject"/>
+        <rdfs:seeAlso rdf:resource="http://www.i2pm.net/standard-pass-ont#MessageExchange"/>
+        <rdfs:seeAlso rdf:resource="http://www.i2pm.net/standard-pass-ont#PASSProcessModel"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ce.jku.edu/aspect-injection-pass-ont#Pointcut -->
+
+    <owl:Class rdf:about="http://www.ce.jku.edu/aspect-injection-pass-ont#Pointcut">
+        <rdfs:subClassOf rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#ConfigurationDescribingComponent"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#hasDataAccessRight"/>
+                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minQualifiedCardinality>
+                <owl:onClass rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#DataAccessRight"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#hasJoinPointDescription"/>
+                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
+                <owl:onClass rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#JoinPointDescription"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#hasDigitalSignature"/>
+                <owl:maxQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxQualifiedCardinality>
+                <owl:onDataRange rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#hasInjectionPriority"/>
+                <owl:maxQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxQualifiedCardinality>
+                <owl:onDataRange rdf:resource="http://www.w3.org/2001/XMLSchema#positiveInteger"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment xml:lang="en">The pointcut of an advice model governs the injection modalities. It also provides general information about the needed level of data access and the model creator. The join point description describes the point during the core process model&apos;s execution that the advice model of the pointcut should be injected. An injection priority can be given for cases when multiple advice models need to be injected at the same join point. Data access rights document the access to core model subject data that is needed. The signature of the model creator is used by the interpreter to verify that advice models were created by a trusted creator that possesses the required level of data access (this is not determined through the listed data access rights, but through the behavior modeled in the actual advice subjects).</rdfs:comment>
+        <rdfs:seeAlso rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#DataAccessRight"/>
+        <rdfs:seeAlso rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#JoinPointDescription"/>
+        <rdfs:seeAlso rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#PASSAdviceModel"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ce.jku.edu/aspect-injection-pass-ont#SubjectDataRequirementsDefinition -->
+
+    <owl:Class rdf:about="http://www.ce.jku.edu/aspect-injection-pass-ont#SubjectDataRequirementsDefinition">
+        <rdfs:subClassOf rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#AIPModelElement"/>
+        <rdfs:subClassOf rdf:resource="http://www.i2pm.net/standard-pass-ont#DataDescribingComponent"/>
+        <rdfs:comment rdf:resource="http://www.ce.jku.edu/aspect-injection-pass-ont#AdviceSubject"/>
+        <rdfs:comment xml:lang="en">The data requirements list of an advice subject specifies the data that it requires from the subject that it should be injected into.</rdfs:comment>
+        <rdfs:comment xml:lang="en">Was lifted to be a subclass of DataDescribingComponent. Abstract list of data requirements that still needs to be defined further.</rdfs:comment>
+        <rdfs:seeAlso rdf:resource="http://www.i2pm.net/standard-pass-ont#DataDescribingComponent"/>
+    </owl:Class>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+
