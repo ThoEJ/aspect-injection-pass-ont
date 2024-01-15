@@ -12,8 +12,10 @@
         <rdfs:comment xml:lang="en">This ontology represents an extension of the Standard-PASS-Ontology aimed to support aspect-oriented modeling with PASS. It specifies additional concepts needed for enriching standard PASS models with aspects - groups of advice process models whose behavior is injected into core PASS process models according to their associated pointcut definitions.</rdfs:comment>
         <owl:priorVersion xml:lang="en">Version 0.5.0 (27.10.2023):
  - Initial specification completed (all concepts needed for defining basic advice process models were added).</owl:priorVersion>
-        <owl:versionInfo xml:lang="en">Version 0.5.1 (02.11.2023):
- - Added comments to all new classes, object properties, data properties, and data types.</owl:versionInfo>
+        <owl:priorVersion xml:lang="en">Version 0.5.1 (02.11.2023):
+ - Added comments to all new classes, object properties, data properties, and data types.</owl:priorVersion>
+        <owl:versionInfo xml:lang="en">Version 0.5.2 (11.01.2024):
+ - Adjusted the aip:joinPointType data type so that the listed options conform to the updated injection points of the newest version of the interpreter specification.</owl:versionInfo>
     </owl:Ontology>
     
 
@@ -79,64 +81,40 @@ Elstermann, M. (2023). Proposal for a Recursive Interpreter Specification for PA
                 <owl:oneOf>
                     <rdf:Description>
                         <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
-                        <rdf:first>AFTER_SUBJECT_INITIALIZATION</rdf:first>
+                        <rdf:first>DATA_BINDING</rdf:first>
                         <rdf:rest>
                             <rdf:Description>
                                 <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
-                                <rdf:first>BEFORE_SUBJECT_TERMINATION</rdf:first>
+                                <rdf:first>DATA_MAPPING</rdf:first>
                                 <rdf:rest>
                                     <rdf:Description>
                                         <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
-                                        <rdf:first>DO_STATE</rdf:first>
+                                        <rdf:first>FUNCTION</rdf:first>
                                         <rdf:rest>
                                             <rdf:Description>
                                                 <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
-                                                <rdf:first>DO_STATE_DATABINDING</rdf:first>
+                                                <rdf:first>MACRO</rdf:first>
                                                 <rdf:rest>
                                                     <rdf:Description>
                                                         <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
-                                                        <rdf:first>DO_STATE_EXT_FUNC_EXEC</rdf:first>
+                                                        <rdf:first>RECEIVE_STATE_DATA_MAPPING</rdf:first>
                                                         <rdf:rest>
                                                             <rdf:Description>
                                                                 <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
-                                                                <rdf:first>END_STATE</rdf:first>
+                                                                <rdf:first>SEND_STATE_DATA_BINDING</rdf:first>
                                                                 <rdf:rest>
                                                                     <rdf:Description>
                                                                         <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
-                                                                        <rdf:first>MACRO</rdf:first>
+                                                                        <rdf:first>STATE</rdf:first>
                                                                         <rdf:rest>
                                                                             <rdf:Description>
                                                                                 <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
-                                                                                <rdf:first>RECEIVE_STATE</rdf:first>
+                                                                                <rdf:first>SUBJECT_INITIALIZATION</rdf:first>
                                                                                 <rdf:rest>
                                                                                     <rdf:Description>
                                                                                         <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
-                                                                                        <rdf:first>RECEIVE_STATE_MESSAGE_BINDING</rdf:first>
-                                                                                        <rdf:rest>
-                                                                                            <rdf:Description>
-                                                                                                <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
-                                                                                                <rdf:first>SEND_STATE</rdf:first>
-                                                                                                <rdf:rest>
-                                                                                                    <rdf:Description>
-                                                                                                        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
-                                                                                                        <rdf:first>SEND_STATE_MESSAGE_BINDING</rdf:first>
-                                                                                                        <rdf:rest>
-                                                                                                            <rdf:Description>
-                                                                                                                <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
-                                                                                                                <rdf:first>START_STATE</rdf:first>
-                                                                                                                <rdf:rest>
-                                                                                                                    <rdf:Description>
-                                                                                                                        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
-                                                                                                                        <rdf:first>STATE</rdf:first>
-                                                                                                                        <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
-                                                                                                                    </rdf:Description>
-                                                                                                                </rdf:rest>
-                                                                                                            </rdf:Description>
-                                                                                                        </rdf:rest>
-                                                                                                    </rdf:Description>
-                                                                                                </rdf:rest>
-                                                                                            </rdf:Description>
-                                                                                        </rdf:rest>
+                                                                                        <rdf:first>SUBJECT_TERMINATION</rdf:first>
+                                                                                        <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
                                                                                     </rdf:Description>
                                                                                 </rdf:rest>
                                                                             </rdf:Description>
