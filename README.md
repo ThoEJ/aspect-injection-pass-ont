@@ -5,6 +5,9 @@ It specifies additional concepts needed for enriching standard PASS models with 
 
 Version History:
 
+Version 0.5.2 (11.01.2024):
+ - Adjusted the aip:joinPointType data type so that the listed options conform to the updated injection points of the newest version of the interpreter specification.
+   
 Version 0.5.1 (02.11.2023):
  - Added comments to all new classes, object properties, data properties, and data types.
 
